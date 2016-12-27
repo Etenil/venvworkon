@@ -26,8 +26,8 @@ workon() {
 
     source "$envdir/bin/activate"
 
-    if [ -e "$envdir/postload.sh" ]
+    if [ -e "$envdir/postactivate.sh" ]
     then
-        source "$envdir/postload.sh"
+        source "$envdir/postactivate.sh"
     fi
 }

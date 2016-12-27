@@ -23,9 +23,9 @@ When `workon` is called, venvs are created or loaded from the
 To change this behavior, set the `WORKON_HOME` environment
 variable before sourcing `venvworkon.sh`.
 
-## Post-load script
-If the file `$HOME/.venvs/<venv>/postload.sh` exists, it is
-automatically sourced after the venv is loaded. This is useful
+## Post-activate script
+If the file `$HOME/.venvs/<venv>/postactivate.sh` exists, it is
+automatically sourced after the venv is activated. This is useful
 to export environment variable such as `DJANGO_SETTINGS_MODULE`.
 
 ## Why bother using this
