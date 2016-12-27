@@ -19,7 +19,9 @@ will be printed instead.
 
 ## Where venvs are created
 When `workon` is called, venvs are created or loaded from the
-`$HOME/.venvs` folder.
+`$HOME/.venvs` folder by default.
+To change this behavior, set the `WORKON_HOME` environment
+variable before sourcing `venvworkon.sh`.
 
 ## Post-load script
 If the file `$HOME/.venvs/<venv>/postload.sh` exists, it is

@@ -1,20 +1,23 @@
 workon() {
-    envroot="$HOME/.venv"
-
-    if [ ! -e "$envroot" ]
+    if [ -z "$WORKON_HOME" ]
     then
-        mkdir -p "$envroot"
+        WORKON_HOME="$HOME/.venv"
+    fi
+
+    if [ ! -e "$WORKON_HOME" ]
+    then
+        mkdir -p "$WORKON_HOME"
     fi
 
     if [ "$#" -lt "1" ]
     then
-        ls "$envroot"
+        ls "$WORKON_HOME"
         return
     fi
 
     envname=$1
 
-    envdir="$envroot/$envname"
+    envdir="$WORKON_HOME/$envname"
 
     if [ ! -e "$envdir" ]
     then
