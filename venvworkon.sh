@@ -1,38 +1,24 @@
 workon() {
-    if [ -z "$WORKON_HOME" ]
-    then
-        WORKON_HOME="$HOME/.venv"
-    fi
+    # Sets WORKON_HOME to default if not set already
+    test -z "$WORKON_HOME" && WORKON_HOME="$HOME/.venv"
 
-    if [ ! -e "$WORKON_HOME" ]
-    then
-        mkdir -p "$WORKON_HOME"
-    fi
+    # Creates WORKON_HOME directory if not exists
+    test ! -e "$WORKON_HOME" && mkdir -p $_
 
-    if [ "$#" -lt "1" ]
-    then
-        ls "$WORKON_HOME"
-        return
-    fi
+    # Quit if there is no arguments, while showing available venvs
+    test "$#" -lt "1" && ls "$WORKON_HOME"; return
 
-    envname=$1
+    envdir="$WORKON_HOME/$1"
 
-    envdir="$WORKON_HOME/$envname"
-
-    if [ ! -e "$envdir" ]
-    then
-        pyvenv "$envdir"
-    fi
+    # Creates virtual env if doesn't exists
+    test ! -e "$envdir" && pyvenv $_ && echo "Virtual env created in $_"
 
     source "$envdir/bin/activate"
+    unset envdir  # VIRTUAL_ENV is now set by bin/activate
 
-    if [ -d "$PROJECT_HOME/$envname" ]
-    then
-        cd "$PROJECT_HOME/$envname"
-    fi
+    # Jumps to project directory if exists and PROJECT_HOME is set
+    test -d "$PROJECT_HOME/$(basename $VIRTUAL_ENV)" && cd $_
 
-    if [ -e "$envdir/postactivate.sh" ]
-    then
-        source "$envdir/postactivate.sh"
-    fi
+    # Source postactivate.sh if exists in the virtual env
+    test -e "$VIRTUAL_ENV/postactivate.sh" && source $_
 }
