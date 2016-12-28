@@ -19,12 +19,19 @@ will be printed instead.
 
 ## Where venvs are created
 When `workon` is called, venvs are created or loaded from the
-`$HOME/.venvs` folder.
+`$HOME/.venvs` folder by default.
+To change this behavior, set the `WORKON_HOME` environment
+variable before sourcing `venvworkon.sh`.
 
-## Post-load script
-If the file `$HOME/.venvs/<venv>/postload.sh` exists, it is
-automatically sourced after the venv is loaded. This is useful
+## Post-activate script
+If the file `$HOME/.venvs/<venv>/postactivate.sh` exists, it is
+automatically sourced after the venv is activated. This is useful
 to export environment variable such as `DJANGO_SETTINGS_MODULE`.
+
+## Project directory
+If `PROJECT_HOME` is set (e.g. `$HOME/Projects`) and there is
+a project folder which match the environment name, venvworkon
+change the current working directory to the project directory.
 
 ## Why bother using this
 `virtualenvwrapper` is certainly much more feature-packed and
