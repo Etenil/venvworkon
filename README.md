@@ -28,6 +28,11 @@ If the file `$HOME/.venvs/<venv>/postactivate.sh` exists, it is
 automatically sourced after the venv is activated. This is useful
 to export environment variable such as `DJANGO_SETTINGS_MODULE`.
 
+## Project directory
+If `PROJECT_HOME` is set (e.g. `$HOME/Projects`) and there is
+a project folder which match the environment name, venvworkon
+change the current working directory to the project directory.
+
 ## Why bother using this
 `virtualenvwrapper` is certainly much more feature-packed and
 useful than this. But this wrapper is handy for development and

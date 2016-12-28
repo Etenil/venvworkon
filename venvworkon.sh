@@ -26,6 +26,11 @@ workon() {
 
     source "$envdir/bin/activate"
 
+    if [ -d "$PROJECT_HOME/$envname" ]
+    then
+        cd "$PROJECT_HOME/$envname"
+    fi
+
     if [ -e "$envdir/postactivate.sh" ]
     then
         source "$envdir/postactivate.sh"
