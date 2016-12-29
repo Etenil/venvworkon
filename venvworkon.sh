@@ -11,7 +11,7 @@ workon() {
     envdir="$WORKON_HOME/$1"
 
     # Creates virtual env if doesn't exists
-    test ! -e "$envdir" && pyvenv $_ && echo "Virtual env created in $_"
+    test ! -e "$envdir" && python3 -m venv $_ && echo "Virtual env created in $_"
 
     source "$envdir/bin/activate"
     unset envdir  # VIRTUAL_ENV is now set by bin/activate
