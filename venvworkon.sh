@@ -6,7 +6,7 @@ workon() {
     test ! -e "$WORKON_HOME" && mkdir -p $_
 
     # Quit if there is no arguments, while showing available venvs
-    test "$#" -lt "1" && ls "$WORKON_HOME"; return
+    test "$#" -lt "1" && ls "$WORKON_HOME" && return
 
     envdir="$WORKON_HOME/$1"
 
