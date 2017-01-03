@@ -20,7 +20,7 @@ workon() {
 
     # Creates virtual env if doesn't exists
     if [ ! -e "$envdir" ]; then
-        pyvenv $envdir
+        python3 -m venv $envdir
         echo "Virtual env created in $envdir"
     fi
 
