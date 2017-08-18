@@ -18,6 +18,11 @@ workon() {
 
     envdir="$WORKON_HOME/$1"
 
+    if [ "$1" == "." ]; then
+        target=$(basename `pwd`)
+        envdir="$WORKON_HOME/$target"
+    fi
+
     # Creates virtual env if doesn't exists
     if [ ! -e "$envdir" ]; then
         python3 -m venv $envdir
