@@ -20,10 +20,12 @@ workon() {
 
     envdir="$WORKON_HOME/$1"
     python_version="3"
+    projectdir=""
 
     if [ "$1" == "." ]; then
         target=$(basename `pwd`)
         envdir="$WORKON_HOME/$target"
+        projectdir=$(pwd)
     fi
 
     if [ "$#" -gt "1" ]; then
@@ -35,19 +37,33 @@ workon() {
     # Creates virtual env if doesn't exists
     if [ ! -e "$envdir" ]; then
         $python_exec -m venv $envdir
+
+        if [ "$projectdir" != "" ]; then
+            echo "projectdir=$projectdir" > "$envdir/postactivate.sh"
+        fi
+
         echo "Virtual env created in $envdir"
     fi
 
     source "$envdir/bin/activate"
     unset envdir  # VIRTUAL_ENV is now set by bin/activate
 
-    # Jumps to project directory if exists and PROJECT_HOME is set
-    if [ -d "$PROJECT_HOME/$(basename $VIRTUAL_ENV)" ]; then
-        cd "$PROJECT_HOME/$(basename $VIRTUAL_ENV)"
-    fi
-
     # Source postactivate.sh if exists in the virtual env
     if [ -e "$VIRTUAL_ENV/postactivate.sh" ]; then
         source "$VIRTUAL_ENV/postactivate.sh"
+    fi
+
+    if [ -e "$projectdir/.env" ]; then
+        . "$projectdir/.env"
+    fi
+
+    # Jumps to project directory if exists and PROJECT_HOME is set
+    projecthome="$PROJECT_HOME/$(basename $VIRTUAL_ENV)"
+    if [ -d "$projecthome" ]; then
+        cd "$projecthome"
+
+        if [ -e "$projecthome/.env" ]; then
+            . "$projecthome/.env"
+        fi
     fi
 }

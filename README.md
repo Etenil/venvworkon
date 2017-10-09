@@ -43,6 +43,16 @@ If `PROJECT_HOME` is set (e.g. `$HOME/Projects`) and there is
 a project folder which match the environment name, venvworkon
 change the current working directory to the project directory.
 
+## DotEnv support
+If the script is able to find the path to your project, and
+a `.env` file exists at the root of your project, then it
+will be sourced automatically when activating the environment.
+
+For the _venvworkon_ to find the path of the project, it
+either needs to be created through the shorthand `.` name, or
+you need to have `PROJECT_HOME` set and your environment
+name must match your project directory's name.
+
 ## Why bother using this
 `virtualenvwrapper` is certainly much more feature-packed and
 useful than this. But this wrapper is handy for development and
