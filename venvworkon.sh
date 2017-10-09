@@ -12,20 +12,29 @@ workon() {
 
     # Quit if there is no arguments, while showing available venvs
     if [ "$#" -lt "1" ]; then
-        ls "$WORKON_HOME" 
+        echo "Usage: workon ENV_NAME PYTHON_VERSION"
+        echo "Available envs:"
+        ls "$WORKON_HOME"
         return
     fi
 
     envdir="$WORKON_HOME/$1"
+    python_version="3"
 
     if [ "$1" == "." ]; then
         target=$(basename `pwd`)
         envdir="$WORKON_HOME/$target"
     fi
 
+    if [ "$#" -gt "1" ]; then
+        python_version=$2
+    fi
+
+    python_exec="python$python_version"
+
     # Creates virtual env if doesn't exists
     if [ ! -e "$envdir" ]; then
-        python3 -m venv $envdir
+        $python_exec -m venv $envdir
         echo "Virtual env created in $envdir"
     fi
 

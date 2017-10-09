@@ -12,10 +12,20 @@ Put the `venvworkon.sh` script somewhere and source it in your
 ## Usage
 The script only supports one usage mode:
 
-    $ workon [environment]
+    $ workon [environment] [python version]
 
 If *environment* is not provided, then the list of existing venvs
 will be printed instead.
+
+## Choosing the python version
+The python you want to use must exist in the `$PATH` and start with
+`python`. Pass the version suffix of the executable as the second
+argument to the script. It'll be translated like so when creating
+the venv:
+
+```
+workon foo 3.6 => python3.6 -m venv $WORKON_HOME/foo
+```
 
 ## Where venvs are created
 When `workon` is called, venvs are created or loaded from the
